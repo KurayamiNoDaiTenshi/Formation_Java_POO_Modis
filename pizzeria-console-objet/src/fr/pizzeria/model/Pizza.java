@@ -13,6 +13,12 @@ public class Pizza {
 		this.prix = prix;
 		nextId++;
 	}
+	public Pizza(Pizza piz) {
+		this.id = piz.id;
+		this.code = piz.code;
+		this.nom = piz.nom;
+		this.prix = piz.prix;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -36,5 +42,8 @@ public class Pizza {
 	}
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+	public String toString() {
+		return this.code+"->"+this.nom+" ("+this.prix+"€)";
 	}
 }

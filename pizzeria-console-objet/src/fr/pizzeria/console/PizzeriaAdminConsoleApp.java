@@ -20,21 +20,32 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("99. Sortir");
 	}
 	public static void listPizza() {
-		Pizza piz;
 		for(int i = 0;i<listPizza.size();i++) {
-			piz = listPizza.get(i);
-			code = piz.getCode();
-			nom = piz.getNom();
-			prix = (double) piz.getPrix();
-			
-			System.out.println(code+"->"+nom+" ("+prix+"€)");
+			System.out.println(listPizza.get(i));
 		}
 	}
+	public static Pizza searchPizza(String code) {
+		String codePiz;
+		for(int i=0;i<listPizza.size();i++) {
+			codePiz = listPizza.get(i).getCode();
+			if(codePiz == code) {
+				return new Pizza(listPizza.get(i));
+			}
+		}
+		return null;
+	}
 	public static void addPizza() {
+		boolean exist;
 		System.out.print("Saisisez le code : ");
-		code = scan.nextLine();
+		code = scan.next();
+		exist = searchPizza(code) != null;
+		while(exist) {
+			System.out.print("Code déjà existant merci d'en saisir un autre : ");
+			code = scan.next();
+			exist = searchPizza(code) != null;
+		}
 		System.out.print("Saisir le nom : ");
-		nom = scan.nextLine();
+		nom = scan.next();
 		System.out.print("Saisir le prix : ");
 		prix = scan.nextDouble();
 		listPizza.add(new Pizza(code, nom, prix));
@@ -56,23 +67,24 @@ public class PizzeriaAdminConsoleApp {
 			choix = scan.nextInt();
 			switch (choix) {
 			case 1:
-				System.out.println("Liste des pizzas");
+				System.out.println("***Liste des pizzas***\n");
 				listPizza();
 				break;
 			case 2:
-				System.out.println("Ajout d’une nouvelle pizza");
+				System.out.println("***Ajout d’une nouvelle pizza***\n");
+				addPizza();
 				break;
 			case 3:
-				System.out.println("Mise à jour d’une pizza");
+				System.out.println("***Mise à jour d’une pizza***\n");
 				break;
 			case 4:
-				System.out.println("Suppression d’une pizza");
+				System.out.println("***Suppression d’une pizza***\n");
 				break;
 			case 99:
 				System.out.println("Aurevoir  ☺");
 				break;
 				default:
-					System.out.println("Choix Incorrect !");
+					System.out.println(" /!\\ Choix Incorrect ! /!\\\n");
 					break;
 			}
 			afficheMenu();
