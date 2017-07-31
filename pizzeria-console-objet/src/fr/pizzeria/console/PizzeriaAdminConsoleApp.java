@@ -24,25 +24,28 @@ public class PizzeriaAdminConsoleApp {
 			System.out.println(listPizza.get(i));
 		}
 	}
-	public static Pizza searchPizza(String code) {
+	public static int searchPizza(String code) {
 		String codePiz;
+		int res = -1;
 		for(int i=0;i<listPizza.size();i++) {
 			codePiz = listPizza.get(i).getCode();
-			if(codePiz == code) {
-				return new Pizza(listPizza.get(i));
+			boolean test = codePiz == code;
+			if(test) {
+				System.out.println("ici");
+				res = i;
 			}
 		}
-		return null;
+		return res;
 	}
 	public static void addPizza() {
 		boolean exist;
 		System.out.print("Saisisez le code : ");
 		code = scan.next();
-		exist = searchPizza(code) != null;
+		exist = searchPizza(code) != -1;
 		while(exist) {
 			System.out.print("Code déjà existant merci d'en saisir un autre : ");
 			code = scan.next();
-			exist = searchPizza(code) != null;
+			exist = searchPizza(code) != -1;
 		}
 		System.out.print("Saisir le nom : ");
 		nom = scan.next();
