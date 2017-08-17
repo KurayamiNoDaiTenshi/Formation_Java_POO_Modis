@@ -1,17 +1,24 @@
 package fr.pizzeria.model;
 
 public class Pizza {
-	Integer id;
-	String code;
-	String nom;
-	double prix;
+	private Integer id;
+	private String code;
+	private String nom;
+	private double prix;
+	private CategoriePizza type;
 	static int nextId = 0;
-	public Pizza(String code,String nom,double prix) {
+	public Pizza(String code,String nom,double prix,CategoriePizza type) {
 		this.id = nextId;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
+		this.type = type;
+
 		nextId++;
+	}
+	@Override
+	public String toString() {
+		return this.code+"->"+this.nom+" ["+this.type+"] ("+this.prix+"€)";
 	}
 	public Integer getId() {
 		return id;
@@ -37,7 +44,10 @@ public class Pizza {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
-	public String toString() {
-		return this.code+"->"+this.nom+" ("+this.prix+"€)";
+	public CategoriePizza getType() {
+		return type;
+	}
+	public void setType(CategoriePizza type) {
+		this.type = type;
 	}
 }

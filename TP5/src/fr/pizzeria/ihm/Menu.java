@@ -3,27 +3,30 @@ package fr.pizzeria.ihm;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class Menu {
 	public static ArrayList<OptionMenu> actions = new ArrayList<OptionMenu>();
 	public static ArrayList<Pizza> pizzas;
 	public static Scanner scan = new Scanner(System.in);
-	public static void afficher() {
+	static {
 		pizzas = new ArrayList<>();
-		System.out.println("***** Pizzeria Administration *****\n");
-		pizzas.add(new Pizza("PEP", "Pépéroni", 12.50));
-		pizzas.add(new Pizza("MAR", "Margherita", 14.00));
-		pizzas.add(new Pizza("REIN", "La Reine", 11.50));
-		pizzas.add(new Pizza("FRO", "La 4 fromages", 12.00));
-		pizzas.add(new Pizza("CAN", "La cannibale", 12.50));
-		pizzas.add(new Pizza("SAV", "La savoyarde", 13.00));
-		pizzas.add(new Pizza("ORI", "L'orientale", 13.50));
-		pizzas.add(new Pizza("IND", "L'indienne", 14.50));
+		pizzas.add(new Pizza("PEP", "Pépéroni", 12.50,CategoriePizza.getCP("V")));
+		pizzas.add(new Pizza("MAR", "Margherita", 14.00,CategoriePizza.getCP("VG")));
+		pizzas.add(new Pizza("REIN", "La Reine", 11.50,CategoriePizza.getCP("V")));
+		pizzas.add(new Pizza("FRO", "La 4 fromages", 12.00,CategoriePizza.getCP("SG")));
+		pizzas.add(new Pizza("CAN", "La cannibale", 12.50,CategoriePizza.getCP("VG")));
+		pizzas.add(new Pizza("SAV", "La savoyarde", 13.00,CategoriePizza.getCP("SG")));
+		pizzas.add(new Pizza("ORI", "L'orientale", 13.50,CategoriePizza.getCP("P")));
+		pizzas.add(new Pizza("IND", "L'indienne", 14.50,CategoriePizza.getCP("V")));
 		actions.add(new ListerPizzasOptionMenu(pizzas));
 		actions.add(new AjoutPizzaOptionMenu(pizzas,scan));
 		actions.add(new EditPizzasOptionMenu(pizzas,scan));
 		actions.add(new SuprPizzasOptionMenu(pizzas,scan));
+	}
+	public static void afficher() {
+		System.out.println("***** Pizzeria Administration *****\n");
 		for(int i = 0;i<actions.size();i++) {
 			System.out.println(actions.get(i).getLibelle());
 		}
@@ -31,9 +34,9 @@ public class Menu {
 
 	}
 	public static void main(String[] args) {
+		afficher();
 		int choix = 0;
 		while(choix!= 99) {
-			afficher();
 			choix = scan.nextInt();
 			switch (choix) {
 			case 1:
@@ -59,7 +62,7 @@ public class Menu {
 				System.out.println(" /!\\ Choix Incorrect ! /!\\\n");
 				break;
 			}
-
+			if(choix != 99) afficher();
 		}
 		scan.close();
 	}

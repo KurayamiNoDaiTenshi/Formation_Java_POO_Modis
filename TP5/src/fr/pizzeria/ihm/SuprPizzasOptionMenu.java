@@ -27,9 +27,17 @@ public class SuprPizzasOptionMenu extends OptionMenu {
 		this.scan = scan;
 	}
 	public void execute() {
+		System.out.print("Saisir code pizza à supprimer : ");
 		String code = scan.next();
-		if(searchPizza(pizzas, code) != -1) {
-			
+		code = code.toUpperCase();
+		System.out.println("\n");
+		int idx = searchPizza(pizzas, code);
+		if(idx != -1) {
+			pizzas.remove(idx);
+			System.out.println("Pizza "+code+" supprimé");
+		}
+		else {
+			System.out.println("code pizza "+code+" inconnu");
 		}
 	}
 
